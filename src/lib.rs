@@ -7,8 +7,14 @@ pub mod windows;
 #[ctor]
 fn hello() {
     unsafe {
-        if let Err(e) = Library::open("bluebrick/bluebrick.dll") {
-            msgbox::create("Error Loading BlueBrick", &format!("Problem opening loader:\n{e:?}"), msgbox::IconType::Error);
+        static mut BLUEBRICK: Option<Library> = None;
+
+        BLUEBRICK = match Library::open("bluebrick/bluebrick.dll") {
+            Ok(lib) => Some(lib),
+            Err(e) => {
+                msgbox::create("Error Loading BlueBrick", &format!("Problem opening loader:\n{e:?}"), msgbox::IconType::Error);
+                return;
+            }
         };
     }
 }

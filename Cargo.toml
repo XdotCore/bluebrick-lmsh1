@@ -6,7 +6,6 @@ edition = "2024"
 [dependencies]
 ctor = "0.4.1"
 dlopen = "0.1.8"
-dlopen_derive = "0.1.4"
 msgbox = "0.7.0"
 
 [target.'cfg(windows)'.dependencies]
