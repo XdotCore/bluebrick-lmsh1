@@ -1,19 +1,12 @@
+use bluebrick_proxy_base::{load_bluebrick, Platform, Renderer};
 use ctor::ctor;
-use dlopen::raw::Library;
-use std::sync::OnceLock;
 
 #[cfg(windows)]
 pub mod windows;
 
 #[ctor]
 fn hello() {
-    static BLUEBRICK: OnceLock<Option<Library>> = OnceLock::new();
+    let _ = msgbox::create("d", "d", msgbox::IconType::None);
 
-    BLUEBRICK.get_or_init(|| match Library::open("bluebrick/bluebrick.dll") {
-        Ok(lib) => Some(lib),
-        Err(e) => {
-            msgbox::create("Error Loading BlueBrick", &format!("Problem opening loader:\n{e:?}"), msgbox::IconType::Error);
-            None
-        }
-    });
+    load_bluebrick(Platform::Win32, Renderer::DX9);
 }
