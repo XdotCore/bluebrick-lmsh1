@@ -14,11 +14,13 @@ impl SubBrick for LMSH1 {
         log!(Self::logger(), "Hello LMSH1!");
     }
 
-    fn enable() {
+    fn enable() -> bool {
         log!(Self::logger(), "enabled");
+        true
     }
     
-    fn disable() {
+    fn disable() -> bool {
         log!(Self::logger(), "disabled");
+        true
     }
 }

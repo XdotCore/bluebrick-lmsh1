@@ -4,8 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bluebrick = { path = "../../loader" }
+bluebrick = { path = "../../loader/rust-bindings" }
 bluebrick-proc-macros = { version = "0.1.0", path = "../../loader/proc_macros" }
+msgbox = "0.7.0"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
