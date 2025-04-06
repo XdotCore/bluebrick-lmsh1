@@ -1,4 +1,4 @@
-use bluebrick::{log, logger::Logger, subbrick::{Library, SubBrick}};
+use bluebrick::{imgui::Ui, log, logger::Logger, subbrick::{Library, SubBrick}};
 use bluebrick_proc_macros::bluebrick_library;
 
 #[bluebrick_library("Lego Marvel Superheroes", "X.Core")]
@@ -22,5 +22,11 @@ impl SubBrick for LMSH1 {
     fn disable() -> bool {
         log!(Self::logger(), "disabled");
         true
+    }
+    
+    fn draw(ui: &mut Ui) {
+        ui.window("LMSH1").build(|| {
+            ui.text_colored([1.0, 0.0, 0.0, 1.0], "Hello World!");
+        });
     }
 }
