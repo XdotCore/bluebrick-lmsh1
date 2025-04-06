@@ -1,0 +1,11 @@
+[package]
+name = "bluebrick-lmsh1"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bluebrick = { path = "../../loader" }
+bluebrick-proc-macros = { version = "0.1.0", path = "../../loader/proc_macros" }
+
+[lib]
+crate-type = ["cdylib", "rlib"]
