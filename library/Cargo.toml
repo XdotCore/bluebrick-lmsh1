@@ -5,7 +5,6 @@ edition = "2024"
 
 [dependencies]
 bluebrick = { path = "../../loader/rust-bindings" }
-bluebrick-proc-macros = { path = "../../loader/proc_macros" }
 msgbox = "0.7.0"
 
 [lib]

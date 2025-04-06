@@ -1,5 +1,4 @@
-use bluebrick::{imgui::Ui, log, logger::Logger, subbrick::{Library, SubBrick}};
-use bluebrick_proc_macros::bluebrick_library;
+use bluebrick::{bluebrick_library, imgui::Ui, log, logger::Logger, subbrick::{Library, SubBrick}};
 
 #[bluebrick_library("Lego Marvel Superheroes", "X.Core")]
 struct LMSH1;
