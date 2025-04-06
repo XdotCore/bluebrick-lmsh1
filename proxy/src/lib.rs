@@ -1,4 +1,4 @@
-use bluebrick::proxy::{load_bluebrick, Config, RequestedPlatform, RequestedRenderer};
+use bluebrick_proxy::{load_bluebrick, Config, RequestedPlatform, RequestedRenderer};
 use ctor::ctor;
 
 #[cfg(windows)]
