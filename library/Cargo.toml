@@ -1,5 +1,5 @@
 [package]
-name = "bluebrick-lmsh1"
+name = "bluebrick-lmsh1-library"
 version = "0.1.0"
 edition = "2024"
 
@@ -8,4 +8,5 @@ bluebrick = { path = "../../loader/rust-bindings" }
 msgbox = "0.7.0"
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib"]
+name = "bluebrick_lmsh1"

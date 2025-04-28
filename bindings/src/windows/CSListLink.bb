@@ -4,6 +4,6 @@ mod Lego
 fields = [
     0x0: next, ptr T,
 ]
-implements = {
+implements = [
     NuEListNode<T>
-}
+]
