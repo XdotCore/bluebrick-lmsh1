@@ -39,8 +39,6 @@ fn xinput() -> &'static Container<XInput1_3API> {
                 panic!("{e}")
             }
         }
-
-        let _ = msgbox::create("Folder", &path, msgbox::IconType::Info);
     })
 }
 
