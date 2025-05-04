@@ -20,7 +20,7 @@ fn xinput() -> &'static Container<XInput1_3API> {
     ONCE.get_or_init(|| {
         const MAX_PATH_UNICODE: usize = 32767;
         let mut path = [0u16; MAX_PATH_UNICODE];
-        let length = SystemInformation::GetSystemDirectoryW(Some(path));
+        let length = SystemInformation::GetSystemDirectoryW(Some(&mut path));
         if length <= 0 {
             let e = "Could not get system directory to open original for proxy (XInput1_3.dll)";
             let _ = msgbox::create("Error Loading BlueBrick", &e, msgbox::IconType::Error);
