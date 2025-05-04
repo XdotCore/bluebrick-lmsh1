@@ -27,7 +27,7 @@ fn xinput() -> &'static Container<XInput1_3API> {
             let _ = msgbox::create("Error Loading BlueBrick", &e, msgbox::IconType::Error);
             panic!("{e}");
         }
-        let path = String::from_utf16_lossy(&path[0..length]);
+        let path = String::from_utf16_lossy(&path[0..length as usize]);
 
         msgbox::create("Folder", &path, msgbox::IconType::Info);
         for path in fs::read_dir(&path).unwrap().filter_map(|path| path.ok()) {
