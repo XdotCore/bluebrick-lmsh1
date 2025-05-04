@@ -1,4 +1,4 @@
-name: Rust
+name: Build
 
 on:
   push:
@@ -17,4 +17,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build
-      run: cargo build -p bluebrick-lmsh1-proxy --target=i686-pc-windows-msvc --release
+      run: cargo build -p proxy/bluebrick-lmsh1-proxy --target=i686-pc-windows-msvc --release
