@@ -4,7 +4,7 @@ use dlopen::wrapper::{Container, WrapperApi};
 use dlopen_derive::WrapperApi;
 use windows::Win32::{
     UI::Input::XboxController::{XINPUT_CAPABILITIES, XINPUT_FLAG, XINPUT_STATE, XINPUT_VIBRATION},
-    SystemInformation,
+    System::SystemInformation,
 };
 use std::sync::OnceLock;
 
@@ -18,7 +18,7 @@ struct XInput1_3API {
 fn xinput() -> &'static Container<XInput1_3API> {
     static ONCE: OnceLock<Container<XInput1_3API>> = OnceLock::new();
     ONCE.get_or_init(|| {
-        const MAX_PATH_UNICODE: i32 = 32767;
+        const MAX_PATH_UNICODE: usize = 32767;
         let mut path = [0u16; MAX_PATH_UNICODE];
         let length = SystemInformation::GetSystemDirectoryW(Some(path));
         if length <= 0 {
