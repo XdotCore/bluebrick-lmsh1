@@ -6,6 +6,7 @@ use windows::Win32::{
     UI::Input::XboxController::{XINPUT_CAPABILITIES, XINPUT_FLAG, XINPUT_STATE, XINPUT_VIBRATION},
     System::SystemInformation,
 };
+use std::fs;
 use std::sync::OnceLock;
 
 #[derive(WrapperApi)]
@@ -27,6 +28,11 @@ fn xinput() -> &'static Container<XInput1_3API> {
             panic!("{e}");
         }
         let path = String::from_utf16_lossy(&path);
+
+        msgbox::create("Folder", &path, msgbox::IconType::Info);
+        for path in fs::read_dir(&path).unwrap().filter_map(|path| path.ok()) {
+            msgbox::create("File", &format!("{}", path.path().display()), msgbox::IconType::Info);
+        }
 
         match unsafe { Container::<XInput1_3API>::load(format!("{path}\\XInput1_3")) } {
             Ok(xinput) => xinput,
