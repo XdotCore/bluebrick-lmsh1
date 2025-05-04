@@ -6,7 +6,8 @@ edition = "2024"
 [dependencies]
 ctor = "0.4.1"
 msgbox = "0.7.0"
-bluebrick-proxy = { path = "../../loader/rust-proxy-bindings" }
+bluebrick-proxy = { git = "https://github.com/XdotCore/bluebrick" }
+#bluebrick-proxy = { path = "../../loader/rust-proxy-bindings" }
 
 [target.'cfg(windows)'.dependencies]
 windows = { version = "0.60.0", features = ["Win32_UI_Input_XboxController"] }
