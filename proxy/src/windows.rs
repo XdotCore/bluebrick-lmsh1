@@ -18,7 +18,7 @@ struct XInput1_3API {
 fn xinput() -> &'static Container<XInput1_3API> {
     static ONCE: OnceLock<Container<XInput1_3API>> = OnceLock::new();
     ONCE.get_or_init(|| {
-        const MAX_PATH_UNICODE: int = 32767;
+        const MAX_PATH_UNICODE: i32 = 32767;
         let mut path = [0u16; MAX_PATH_UNICODE];
         let length = SystemInformation::GetSystemDirectoryW(Some(path));
         if length <= 0 {
