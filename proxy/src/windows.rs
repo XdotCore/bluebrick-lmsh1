@@ -2,7 +2,10 @@
 
 use dlopen::wrapper::{Container, WrapperApi};
 use dlopen_derive::WrapperApi;
-use windows::Win32::UI::Input::XboxController::{XINPUT_CAPABILITIES, XINPUT_FLAG, XINPUT_STATE, XINPUT_VIBRATION};
+use windows::Win32::{
+    UI::Input::XboxController::{XINPUT_CAPABILITIES, XINPUT_FLAG, XINPUT_STATE, XINPUT_VIBRATION},
+    SystemInformation,
+};
 use std::sync::OnceLock;
 
 #[derive(WrapperApi)]
@@ -15,7 +18,17 @@ struct XInput1_3API {
 fn xinput() -> &'static Container<XInput1_3API> {
     static ONCE: OnceLock<Container<XInput1_3API>> = OnceLock::new();
     ONCE.get_or_init(|| {
-        match unsafe { Container::<XInput1_3API>::load("XInput1_3") } {
+        const MAX_PATH_UNICODE: int = 32767;
+        let mut path = [0u16; MAX_PATH_UNICODE];
+        let length = SystemInformation::GetSystemDirectoryW(Some(path));
+        if length <= 0 {
+            let e = "Could not get system directory to open original for proxy (XInput1_3.dll)";
+            let _ = msgbox::create("Error Loading BlueBrick", &e, msgbox::IconType::Error);
+            panic!("{e}");
+        }
+        let path = String::from_utf16_lossy(&path);
+
+        match unsafe { Container::<XInput1_3API>::load(format!("{path}\\XInput1_3")) } {
             Ok(xinput) => xinput,
             Err(e) => {
                 let e = format!("Problem opening original for proxy (XInput1_3.dll):\n{e:?}");
