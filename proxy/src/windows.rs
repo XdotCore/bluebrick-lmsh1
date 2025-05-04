@@ -12,9 +12,9 @@ struct XInput1_3API {
     XInputGetCapabilities: extern "C" fn(dwuserindex: u32, dwflags: XINPUT_FLAG, pcapabilities: *mut XINPUT_CAPABILITIES) -> u32,
 }
 
-fn xinput() -> &Container<XInput1_3API> {
-    let once = OnceLock::new();
-    once.get_or_init(|| {
+fn xinput() -> &'static Container<XInput1_3API> {
+    static ONCE: OnceLock<Container<XInput1_3API>> = OnceLock::new();
+    ONCE.get_or_init(|| {
         match unsafe { Container::<XInput1_3API>::load("XInput1_3") } {
             Ok(xinput) => xinput,
             Err(e) => {
