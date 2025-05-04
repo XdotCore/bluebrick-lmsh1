@@ -28,18 +28,18 @@ fn xinput() -> &'static Container<XInput1_3API> {
 
 #[unsafe(no_mangle)]
 pub extern "C" fn XInputGetState(wuserindex: u32, pstate: *mut XINPUT_STATE) -> u32 {
-    println!("XInputGetState");
+    let _ = msgbox::create("err", "XInputGetState", msgbox::IconType::Info);
     xinput().XInputGetState(wuserindex, pstate)
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn XInputSetState(dwuserindex: u32, pvibration: *const XINPUT_VIBRATION) -> u32 {
-    println!("XInputSetState");
+    let _ = msgbox::create("err", "XInputSetState", msgbox::IconType::Info);
     xinput().XInputSetState(dwuserindex, pvibration)
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn XInputGetCapabilities(dwuserindex: u32, dwflags: XINPUT_FLAG, pcapabilities: *mut XINPUT_CAPABILITIES) -> u32 {
-    println!("XInputGetCapabilities");
+    let _ = msgbox::create("err", "XInputGetCapabilities", msgbox::IconType::Info);
     xinput().XInputGetCapabilities(dwuserindex, dwflags, pcapabilities)
 }
