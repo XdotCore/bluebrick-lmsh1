@@ -29,10 +29,7 @@ fn xinput() -> &'static Container<XInput1_3API> {
         }
         let path = String::from_utf16_lossy(&path[0..length as usize]);
 
-        msgbox::create("Folder", &path, msgbox::IconType::Info);
-        for path in fs::read_dir(&path).unwrap().filter_map(|path| path.ok()) {
-            msgbox::create("File", &format!("{}", path.path().display()), msgbox::IconType::Info);
-        }
+        let _ = msgbox::create("Folder", &path, msgbox::IconType::Info);
 
         match unsafe { Container::<XInput1_3API>::load(format!("{path}\\XInput1_3")) } {
             Ok(xinput) => xinput,
@@ -42,6 +39,8 @@ fn xinput() -> &'static Container<XInput1_3API> {
                 panic!("{e}")
             }
         }
+
+        let _ = msgbox::create("Folder", &path, msgbox::IconType::Info);
     })
 }
 
@@ -60,5 +59,7 @@ pub extern "C" fn XInputSetState(dwuserindex: u32, pvibration: *const XINPUT_VIB
 #[unsafe(no_mangle)]
 pub extern "C" fn XInputGetCapabilities(dwuserindex: u32, dwflags: XINPUT_FLAG, pcapabilities: *mut XINPUT_CAPABILITIES) -> u32 {
     let _ = msgbox::create("err", "XInputGetCapabilities", msgbox::IconType::Info);
-    xinput().XInputGetCapabilities(dwuserindex, dwflags, pcapabilities)
+    let res = xinput().XInputGetCapabilities(dwuserindex, dwflags, pcapabilities);
+    let _ = msgbox::create("err", "XInputGetCapabilities post", msgbox::IconType::Info);
+    res
 }
