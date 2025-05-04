@@ -1,3 +1,5 @@
+#![allow(non_snake_case)]
+
 use dlopen::wrapper::{Container, WrapperApi};
 use dlopen_derive::WrapperApi;
 use windows::Win32::UI::Input::XboxController::{XINPUT_CAPABILITIES, XINPUT_FLAG, XINPUT_STATE, XINPUT_VIBRATION};
@@ -11,15 +13,15 @@ struct XInput1_3API {
 }
 
 fn xinput() -> Container<XInput1_3API> {
-    let once = OnceLock::<Container<XInput1_3API>>::new();
+    let once = OnceLock::new();
     once.get_or_init(|| {
-        match unsafe { Container::<BBApi>::load("XInput1_3") } {
+        match unsafe { Container::<XInput1_3API>::load("XInput1_3") } {
             Ok(xinput) => xinput,
             Err(e) => {
                 let _ = msgbox::create("Error Loading BlueBrick", &format!("Problem opening original for proxy (XInput1_3.dll):\n{e:?}"), msgbox::IconType::Error);
                 return;
             }
-        };
+        }
     })
 }
 
