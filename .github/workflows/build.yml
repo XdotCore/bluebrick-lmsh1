@@ -17,4 +17,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build
-      run: cargo build -p proxy/bluebrick-lmsh1-proxy --target=i686-pc-windows-msvc --release
+      run: cargo build -p bluebrick-lmsh1-proxy --manifest-path=proxy/Cargo.toml --target=i686-pc-windows-msvc --release
